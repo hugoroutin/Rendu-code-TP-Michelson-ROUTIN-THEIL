@@ -1,0 +1,456 @@
+\documentclass[a4paper, 12pt]{article}
+
+% Packages de base
+\usepackage[utf8]{inputenc} % Encodage UTF-8
+\usepackage[T1]{fontenc}    % Encodage de la police
+\usepackage{lmodern}        % Police moderne
+\usepackage[french]{babel}  % Langue française
+\usepackage{graphicx}       % Insertion d'images
+\usepackage{caption}        % Légendes des figures et tableaux
+\usepackage{amsmath, amssymb} % Mathématiques
+\usepackage{geometry}       % Gérer les marges
+\usepackage{fancyhdr}       % En-tête et pied de page
+\usepackage{hyperref}       % Liens hypertextes
+\usepackage{float}          % Pour les images/figures fixes
+\usepackage{listings}       % Pour insérer du code
+\usepackage{multicol}       % Pour les colonnes
+\usepackage{fancyhdr}
+\usepackage{lipsum}
+\usepackage{color}
+\usepackage{wasysym}
+\usepackage{textcomp}
+
+% Réglages de page
+\geometry{top=1.5cm, bottom=1cm, left=1cm, right=1cm}
+
+% Réglage de l'en-tête et du pied de page
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{IOGS 2024/2025 } % En-tête à gauche
+\fancyhead[R]{Travaux Pratiques}     
+\fancyhead[C]{\thepage} % Numéro de page centré
+
+% Réglage des liens hypertextes
+\hypersetup{
+    colorlinks=true,       % Liens colorés
+    linkcolor=blue,        % Couleur des liens internes
+    urlcolor=cyan,         % Couleur des URL
+}
+
+% Modification de l'écart entre les colonnes
+\setlength{\columnsep}{2em}  % Double l'écart entre les colonnes
+
+% Configuration pour l'insertion de code
+\lstset{
+  basicstyle=\ttfamily\footnotesize,   % Police du code
+  keywordstyle=\color{blue},           % Style des mots-clés
+  commentstyle=\color{green},          % Style des commentaires
+  stringstyle=\color{red},             % Style des chaînes de caractères
+  numbers=left,                       % Numéroter les lignes à gauche
+  numberstyle=\color{black},       % Style des numéros de ligne
+  stepnumber=1,                        % Incrément de numéro de ligne
+  numbersep=5pt,                       % Espacement entre le code et les numéros de ligne
+  backgroundcolor=\color{white},       % Couleur d'arrière-plan
+  frame=single,                        % Encadrer le code
+  captionpos=b,                        % Placer la légende en bas
+  breaklines=true,                     % Casser les lignes longues
+  breakatwhitespace=true,              % Casser à l'espace si nécessaire
+  showspaces=false,                    % Ne pas afficher les espaces
+  showstringspaces=false,              % Ne pas afficher les espaces dans les chaînes
+}
+
+\begin{document}
+% Page de titre
+\begin{titlepage}
+    \centering
+    \vspace*{5cm}
+    \Huge
+    \textbf{Rapport de Travaux Pratiques}\\
+    \vspace{1cm}
+    
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{logo_sup_op.png}
+    \label{fig:label_figure}
+    \end{figure}
+
+    \LARGE
+    Sujet : Interféromètre de Michelson \\
+    \vspace{1cm}
+    \textbf{Samuel Theil et Hugo Routin}  \\
+    \textbf{11/12/2024}  \\
+    \vfill
+    \Large
+    Institut Optique Graduate School \\
+    \vspace{1cm}
+    \textbf{Encadrante :} Emma Aoustin 
+\end{titlepage}
+
+% Table des matières
+\tableofcontents
+
+\newpage
+% Introduction
+\section{Introduction}
+\begin{multicols}{2}
+    
+
+L'interféromètre de Michelson est un dispositif d'interférométrie à division d'amplitude composé de deux miroirs, d'une lame séparatrice et d'une lame compensatrice. Il peut être décliné en deux configurations : le coin d'air et la lame d'air. Le Michelson est utilisé dans des domaines divers comme la détection des ondes gravitationnelles ou la tomographie en cohérence optique. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.3\textwidth]{schema_mic.png}
+    \label{fig:label_figure}
+    \caption{Schéma de l'interféromètre issu du sujet de TP}
+\end{figure}
+\end{multicols}
+
+\section{Réglages grossiers du Michelson}
+
+L'objectif est d'obtenir des franges d'interférence en ajustant l'interféromètre. Nous utilisons comme source la lampe plus une lame dépolie et un filtre vert.
+
+\begin{itemize}
+    \item \textbf{Préparation initiale :}  
+    Nous vérifions l'éclairage des miroirs, la position à mis course de M2, et l'équilibre des distances entre M1 et M2 à la séparatrice.
+
+    \item \textbf{Alignement du trou-source et de M1 :}  
+    Nous utilisons des trous sources de tailles décroissantes pour centrer le trou-source sur l'axe du collimateur par autocollimation, puis aligner M1 sur cet axe.
+
+    \item \textbf{Réglages de M2 :}  
+    Nous ajustons si besoin la compensatrice pour éliminer les images parasites, puis superposer les images de M1 et M2 en réglant la rotation de M2. Après finalisation, nous observons des franges rectilignes.
+\end{itemize}
+
+Ces réglages préparent l'interféromètre pour les ajustements fins.
+
+
+
+\section{Recherche du contact optique}
+%\begin{multicols}{2}
+    
+
+
+"On dit que le contact optique est établi lorsque le symétrique M ′
+1 du miroir M1 par
+rapport au plan de la séparatrice est parfaitement confondu avec le miroir M2 (et réciproquement)." \footnote{Sujet du TP} On cherche à observer une figure d'interférence homogène (la teinte plate). Atteindre une telle configuration nécessite le meilleur parallélisme possible entre M1 et M2. On applique deux méthodes pour atteindre ce parallélisme. 
+
+\subsection{Méthode des franges en coin d'air}
+Nous plaçons une lentille en sortie de l'interféromètre de manière à observer les franges à l'infini. Nous utilisons un petit trou source afin d'obtenir une bonne cohérence spatiale de la part de la source. \textbf{(Q1)} On observe des franges d'égale épaisseur sur l'interférogramme. Le nombre de franges observé est donné par: $N_f=\frac{2\alphaD}{\lambda}$. L'interfrange est donnée par: $i=\frac{\lambda}{2\alpha}$. Ainsi, si l'on agit sur les réglages de manière à réduire le nombre de franges observées (donc augmenter l'interfrange), on réduit $\alpha$. L'application de cette méthode atteint toutefois ses limites quand on obtient une figure d'interférence quasi homogène à une demi-frange près, or, $\alpha=\frac{\lambda}{4D}$. Ainsi l'angle résiduel $\alpha_{res}$ est donné par : $\alpha_{res}=\frac{\lambda}{4D}=2.7\mu rad=1.6*10^{-4}deg=0.56"$ avec D le diamètre des miroirs. \textbf{(Q2)} Cette méthode ne permet donc pas d'atteindre le parallélisme nécessaire pour la suite. Nous passons donc à la deuxième méthode.
+
+\subsection{Méthode de respiration des anneaux}
+La méthode précédente a permis d'atteindre une figure homogène à 0.5 frange près. Nous translatons M2 de façon à obtenir une figure comportant 3 ou 4 anneaux. Nous observons les anneaux à l'œil nu car ils se forment à l'infini.\textbf{(Q3)} En déplaçant son œil, l'observateur pourra voir le centre de la figure changer d'état d'interférence, cela est dû au fait qu'en configuration coin d'air, l'état d'interférence observé dépend de la position de l'observateur à cause de l'angle $\alpha$.\textbf{(Q4)} Il convient alors de régler l'inclinaison de M2 afin de supprimer cette "respiration" et sortir de la configuration coin d'air. Cette méthode est nécessairement plus précise que la première, car après avoir exploité au maximum la première méthode, on peut encore progresser sur le réglage en utilisant la seconde méthode.\textbf{(Q5)}  En supposant que cette méthode soit 10x plus précise que la précédente, nous arrivons à $\alpha_{res}=0.056"$. 
+
+\subsection{Recherche de la teinte plate}
+L'ordre d'interférence p d'un point de l'interférogramme est donné par: $p=\frac{2ecos(i)}{\lambda0}$. ainsi, pour un ordre fixé, une diminution de e implique une augmentation de la quantité $cos(i)$ donc une diminution de l'angle i. On en déduit qu'une diminution de e implique que les anneaux "rentrent" et vice versa.\textbf{(Q6)} Il faut donc faire "rentrer les anneaux dans la figure" pour atteindre $e=0$. Nous remarquons que le comportement des anneaux est bien symétrique de part et d'autre du contact optique. La détermination de la position du contact optique se fait au juger de l'expérimentateur. Deux sources d'incertitudes se dégagent: l'appréciation de si on est vraiment à la teinte plate et les graduations du vernier. Nous effectuons plusieurs fois le réglage et obtenons :
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|}
+         \hline
+         Essai n°&1&2&3&4&5\\
+         \hline
+         Mesure (séance 1) (mm) &30.31&30.32&30.33&30.33&30.31 \\
+         \hline
+	 Mesure (séance 2) (mm) &20.38&20.37&20.38&20.39&20.40\\
+	 \hline 
+         
+    \end{tabular}
+    \caption{Résultats des lectures du vernier}
+    \label{tab:my_label}
+\end{table}
+Nous obtenons un écart type sur ces mesures tel que $2\sigma=0.03mm$ ce qui est 3x supérieur à la précision du vernier. Nous en déduisons que la source principale d'incertitudes est l'appréciation de l'expérimentateur. \textbf{(Q7)}
+
+%\end{multicols}
+
+\section{Anneaux d’égale inclinaison - Cohérence temporelle de la source}
+On se place dans cette section en configuration lame d'air. Nous étudions les franges obtenues dans cette configuration et la longueur de cohérence temporelle de la source. 
+
+\subsection{Comptage des anneaux}
+\begin{multicols}{2}
+    
+
+Cherchons ici le lien entre le nombre d'anneaux et l'épaisseur e de la lame d'air. On a en lame d'air $p=\frac{2ecos(i_s)}{\lambda}$. On peut donc déduire le nombre d'anneaux $NA= p_{max}-p_{min} \approx \frac{ei_s^2}{\lambda}$ (préparation). Avec $\lambda=546.1nm$, $i_s=\frac{\diameter_{trou source}}{2f_{colli}}$. Nous nous attendions à trouver un coefficient 'a' de proportionnalité entre e et NA de $ (1.1\pm 0.2)mm^{-1}$. Pour vérifier cette valeur théorique, nous avons mesuré la distance e correspondant à [1,2, ... 8] anneaux. Nous obtenons les résultats suivants:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.45\textwidth]{plot_NA_e.png}
+    \label{fig:label_figure}
+    
+\end{figure}
+
+
+\end{multicols}
+Après avoir utilisé la méthode des moindres carrés pour fit nos données, nous obtenons que le coefficient de proportionnalité mesuré entre e et NA de $0.99\pm0.02mm^{-1}$ . Cela est cohérent avec la théorie.\textbf{(Q8)}\textbf{(Q9)}
+
+\subsection{Longueur de cohérence temporelle}
+
+Nous voulons maintenant mesurer la longueur de cohérence de notre source. Comme dit dans le sujet du TP, l'expression de la visibilité n'est pas un sinus cardinal mais une gaussienne. On ne vera donc pas d'annulation du contraste comme si l'on avait un spectre carré. La solution utilisée ici sera de mesurer une chute notable du contraste (à l'œil) correspondant ) $\Delta p=\frac{1}{4}$. L'incidence normale dans laquelle on s'est placés implique : $p=\frac{\delta}{\lambda}$. Nous en déduisons:
+
+\[
+\Delta p_{\text{CT}} = p_{\text{max}} - p_{\text{min}} = 
+\frac{\delta}{c} \Delta \nu = \frac{\delta}{\Delta \lambda} \frac{\lambda_0^2}{2} = 2e_{1/4} \times 
+\frac{\Delta \lambda}{\lambda_0^2} = \frac{2e_{1/4}}{L_c}
+\]
+Nous mesurons $e_{1/4}\approx7mm$, ainsi $L_c=8*e_{1/4}\approx60mm$. De plus, $\Delta \lambda=\frac{\lambda_0^2}{L_c}\approx5pm$ et $N=\frac{\lambda_0}{\Delta \lambda}\approx 10^5$.\textbf{(Q10)} Il serait assez incertain de donner une incertitude à ces résultats car notre mesure de $e_{1/4}$ est entachée d'une très grosse incertitude. \textbf{(Q11)}
+
+\subsection{Mesure du profil spectral complet avec un Michelson - Spectroscopie à transformée de Fourier et Tomographie à cohérence optique }
+Pour mesurer le profil spectral complet de la source avec notre Michelson nous mesurons l'intensité $I(\delta)$, fonction de la différence de marche $\delta$. Nous prenons ensuite la transformée de Fourier de $I(\delta)$. Nous obtenons ainsi le profil spectral de la source. En effet, on peut montrer que nous avons la relation\footnote{Henri Benisty, \textit{Cours d'optique physique 1A} 2024}:
+
+\[
+I_{\text{sym}}(\sigma) = \int_{-\infty}^{+\infty} \hat{I}(\delta) \, e^{-j 2 \pi \sigma \delta} \, d\delta = \int_{-\infty}^{+\infty} \hat{I}(\delta) \, \cos(2 \pi \sigma \delta) \, d\delta
+\]
+Cette méthode est connue sous le nom de \textbf{Spectroscopie à Transformée de Fourier (FTS)}. C'est une méthode très populaire de spectroscopie, utilisée notamment au Synchrotron SOLEIL sur le plateau. Cette méthode n'est néanmoins pas adaptée à toutes les applications de spectroscopie, par exemple, pour les mesures de continuum d'absorption d'un gaz, la FTS peut être avantageusement remplacée par la \textbf{ Comb-Referenced Cavity Ring-Down Spectroscopy (CR-CRDS)}\footnote{S.N. Mikhailenko et al.,
+An accurate and complete empirical line list for water vapor between 5850 and 7920cm−1,
+Journal of Quantitative Spectroscopy and Radiative Transfer,2014
+} en raison de sa plus grande précision due au fait que les fluctuations dans l'intensité de la lumière source n'affecte pas les données obtenues \footnote{Aleksandra Zibarova. High resolution far- and near-infrared absorption spectroscopy of water vapor for atmospheric applications : lines and continuum. Université Grenoble Alpes [2020-2023]}.\textbf{(Q12)}\\
+
+Avec un Michelson, nous pouvons aussi raisonner dans l'autre sens et faire de l'imagerie par la technique de la Tomographie par cohérence optique. Gardons le miroir M1 et remplaçons M2 par un échantillon biologique et modelisons le comme étant composé de plusieurs couches parfaitement translucides ayant de diverses réflectivités. Avec une source effectuant un sweep en nombre d'onde entre $[\sigma_{min},\sigma_{max}]$ nous mesurons $I(\sigma)=\lvert E(\sigma) \rvert ^2=\lvert E_{ref}(\sigma)+E_{sample}(\sigma)\rvert ^2$. Suis ensuite une étape de correction pour ajuster la phase du signal en fonction de $\sigma$ : $E'(\sigma) = E(\sigma) e^{-i \phi(\sigma)}$, où $\phi(\sigma)$ est la phase corrigée. En utilisant la FFT nous pouvons ainsi déduire l'amplitude de l'onde en fonction de la profondeur e dans l'échantillon. 
+\begin{multicols}{2}
+    
+
+\[
+ E(e) = \int_{\sigma_{min}}^{\sigma_{max}} E'(\sigma) e^{-i 2\pi \sigma z} d\sigma,
+\]\\
+Ce qui nous permet d'en déduire les différentes réflectivités des tissus en fonction de la profondeur dans l'échantillon et donc d'obtenir une image de notre échantillon.
+
+
+\end{multicols}
+
+
+\section{Franges d’égale épaisseur - Cohérence spatiale de la source}
+On étudie dans cette partie la visibilité des franges en coin d’air $\alpha \neq0$ en fonction de
+la taille de la source et de l’épaisseur e moyenne du coin d’air.
+
+
+\subsection{Étude au voisinage du contact optique}
+Nous revenons au contact optique afin de ne plus voir que les franges dues au coin d'air. Nous faisons disparaitre ces franges afin de nous placer proches de la teinte plate. Seuls les défauts du miroir (d'épaisseur $e_{def}$) viennent faire apparaitre des franges sur notre interférogramme. Nous mesurons alors $\Delta p_{res}=\frac{2e_{def}}{\lambda}\approx \frac{1}{4}$
+. Nous en déduisons que $e_{def}=\frac{\Delta p_{res}}{\lambda}\approx 0.07\mu m$
+Les optiques du Michelson sont donc de très bonne qualité. On note de plus qu'une telle épaisseur de défaut n'est pas détectable avec les interféromètres de Fizeau que nous avions utilisés lors du TP de contrôles interférométriques. \textbf{(Q13)}
+
+On dérègle à présent le miroir M2 pour faire apparaitre $7\pm \frac{1}{2}$ franges. Lors de la préparation on a montré que l'angle $\alpha$ est donné par la relation: $\alpha =\frac{\lambda_0N_{franges}}{2\diameter_{miroirs}}=3.8\pm0.3 *10^{-5}rad$.\textbf{(Q14)} On observe des franges même avec une source étendue car l'étendue de la source n'agit que sur le paramètre $i_s$. Or la préparation nous a fait démonter que l'épaisseur critique de la lame d'air $e_{crit}$ avant une annulation de la visibilité des franges est donnée par la relation: $e_{crit}=\frac{\lambda}{i_s^2} $. Or, $e_{crit}$ est dans ce cas bien supérieure à l'épaisseur e dans laquelle nous nous sommes placés. C'est donc notre grande proximité avec le contact optique ($e\ll1$) qui permet d'avoir des franges pour tout $i_s$ donné.\textbf{(Q15)}
+
+\subsection{Annulation de contraste}
+Dans le cas de la cohérence spatiale on a une annulation périodique du contraste. Pour un spectre carré on a une intensité:
+
+\[
+I(\delta)=I_0[1+sinc(\Delta \sigma \delta)cos(2\pi p)]
+\]
+On a donc théoriquement des annulations symétriques de part et d'autre du contact optique. \textbf{(Q16)} Montrons que l'on a une relation linéaire entre e et p l'ordre d'interférence. 
+\\
+On a montré lors de la préparation que $\Delta p= \frac{e i_s^2}{\lambda_0}$. Or ici $i_s=\frac{\diameter_{trou} }{2f_{colli}}$
+on a donc:
+\[
+\Delta p= \frac{e\diameter_{trou}^2}{4f_{colli}^2\lambda_0} \Leftrightarrow e= \frac{4f_{colli}^2\lambda_0\Delta p }{\diameter_{trou}^2}
+\]
+Nous mesurons les positions des annulations du contraste pour deux diamètres de trou différents (10mm et 15mm). Nous obtenons: 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{plot_e_p_v2.png}
+    \label{fig:label_figure}
+
+    
+\end{figure}
+
+L'obtention de ces données n'a pas été aisée car il a été difficile d'estimer quand le contraste s'annulait vraiment. Il subsiste donc une erreur importante sur l'ordre d'interférence p.  Les valeurs des incertitudes sur p sont fixées arbitrairement. Nous avons fixé que pour le point de départ $\Delta p=0.1$ car cela correspond à la teinte plate que nous avons atteinte précédemment. Nous sommes donc confiants sur le fait que l'on a bien $p=0$ quand $e=0$ et inversement avec une erreur minime. Nous fixons aussi que tous les fits linéaires passent bien par le point $(p=0,e=0)$. Pour les points de première annulation, nous fixons $\Delta p=0.25$ et $\Delta p=0.4$ pour les deuxièmes annulations car les annulations sont de moins en moins discernables et donc nos erreurs d'estimations sont potentiellement plus grandes. Nous utilisons ensuite la méthode des moindres carrés pour obtenir la pente de la fonction afine f tel que $e=f(p)$ la fonction $curvefit()$ nous donne aussi l'incertitude sur la pente. Les pentes obtenues expérimentalement sont résumées dans ce tableau:
+
+
+
+\begin{multicols}{2}
+    
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+         &  Trou 10mm&Trou 15mm \\\hline
+         Pente (Théorie)&  1.96mm & 0.87mm\\ \hline
+         Pente (Mesure)&$1.9\pm0.1 mm$  &$0.91\pm0.05 mm$ \\\hline
+    \end{tabular}
+    \caption{Pentes théoriques et mesurées}
+    \label{tab:my_label}
+\end{table}
+Nos résultats expérimentaux sont ainsi compatibles avec la théorie. \textbf{(Q17)}
+\\
+Pour le trou de 15mm, nous nous plaçons à la première annulation, ie à $e=1.19mm$. On a toujours:
+\end{multicols}
+\begin{multicols}{2}
+\[
+\Delta p= \frac{e\diameter_{trou}^2}{4f_{colli}^2\lambda_0} \Leftrightarrow N_{anneaux}= \frac{e\diameter_{trou}^2}{4f_{colli}^2\lambda_0}=1.36
+\]
+Nous observons $\approx1.5 \pm 0.2$ anneaux sur la figure d'interférence. Cela est donc conforme à notre prédiction.\textbf{(Q18)}
+\end{multicols}
+
+
+
+\section{Mesure d’un intervalle spectral}
+On utilise à présent un filtre orangé, qui permet d’isoler le doublet jaune du mercure (\( \lambda_1 = 577,0 \, \text{nm} \) et \( \lambda_2 = 579,1 \, \text{nm} \)). nous allons dans cette partie mesurer l’écart spectral entre ces deux longueurs d’onde.
+
+
+    On cherche à mesurer avec la plus grande précision possible l’écart spectral entre ces deux longueurs d’onde.  
+
+L’intensité s'exprime comme :  
+\[
+I = 2I_0 \left(1 + \cos\left(\frac{2\pi \delta}{\lambda_1}\right)\right) + 2I_0 \left(1 + \cos\left(\frac{2\pi \delta}{\lambda_2}\right)\right) \Leftrightarrow I = 4I_0 \left(1 + \cos\left(\pi \delta \left(\frac{1}{\lambda_1} - \frac{1}{\lambda_2}\right)\right) 
+\cos\left(\pi \delta \left(\frac{1}{\lambda_1} + \frac{1}{\lambda_2}\right)\right)\right)
+\]
+
+\[
+\text{En posant :} \lambda_m = \frac{\lambda_1 + \lambda_2}{2} \quad \text{et} \quad \Delta \lambda = \lambda_2 - \lambda_1, \)
+\]
+
+\[
+I = 4I_0 \left(1 + \cos\left(\pi \delta \frac{\Delta \lambda}{\lambda_m^2}\right) \cos\left(2\pi \delta \frac{1}{\lambda_m}\right)\right).
+\]
+
+
+
+Le contraste s’annule lorsque :
+\[
+\pi \delta \frac{\Delta \lambda}{\lambda_m^2} = k + \frac{1}{2}, \quad k \in \mathbb{Z}.\text{  \textbf{(Q19)}}
+\]
+
+En prenant \( k = 0 \) et en notant \( d = e_1 - e_0 \) la distance séparant deux anticoïncidences successives, on obtient :
+\[
+2d \frac{\Delta \lambda}{\lambda_m^2} = 1  \Leftrightarrow 2d \Delta \sigma = 1 \text{ en utilisant: }\Delta \sigma = \frac{1}{\lambda_1} - \frac{1}{\lambda_2}
+\]
+
+\newpage
+\begin{multicols}{2}
+    
+
+Intéressons-nous aux anticoïncidences, celles-ci sont les plus faciles à viser. Nous effectuons une étude de répétabilité, nous tombons 4 fois de suite sur la valeur $e= 22.40$. Nous en déduisons que nous sommes limités non pas par notre visée, mais par la précision du vernier et que l'incertitude de notre mesure sera égale à la précision de ce dernier. Posons alors l'incertitude $u(e)$ de la mesure de e : $e(u)=0.01mm$.\textbf{(Q20)} 
+Nous relevons alors les positions d'anticoincidences successives $(e_1,e_2, ....)$ et les distances $d_n=d_n-d_{n-1}$ $(d_1,d_2,...)$. Nous consignons nos mesures dans le tableau suivant \textbf{(Q21)}:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+Indice & \( e \) (mm) & \( \Delta d \) (mm) \\
+\hline
+\( e_0 \) & \( 22.40 \pm 0.01 \) & \\
+\( e_1 \) & \( 22.34 \pm 0.01 \) & \( 0.06 \pm 0.01 \) \\
+\( e_2 \) & \( 22.24 \pm 0.01 \) & \( 0.10 \pm 0.01 \) \\
+\( e_3 \) & \( 22.16 \pm 0.01 \) & \( 0.08 \pm 0.01 \) \\
+\( e_4 \) & \( 22.08 \pm 0.01 \) & \( 0.08 \pm 0.01 \) \\
+\( e_5 \) & \( 22.00 \pm 0.01 \) & \( 0.08 \pm 0.01 \) \\
+\( e_6 \) & \( 21.92 \pm 0.01 \) & \( 0.08 \pm 0.01 \) \\
+\( e_7 \) & \( 21.84 \pm 0.01 \) & \( 0.08 \pm 0.01 \) \\
+\( e_8 \) & \( 21.76 \pm 0.01 \) & \( 0.08 \pm 0.01 \) \\
+\( e_9 \) & \( 21.69 \pm 0.01 \) & \( 0.07 \pm 0.01 \) \\
+\( e_{10} \) & \( 21.61 \pm 0.01 \) & \( 0.08 \pm 0.01 \) \\
+\hline
+\end{tabular}
+\caption{Tableau des valeurs de \( e \) et \( d \) avec leurs incertitudes}
+\end{table}
+\end{multicols}
+
+\subsection{Une première méthode}
+La première méthode qui nous est proposée utilise toutes les mesures de e et d que nous avons effectuées précédemment. Nous avions indiqué l'erreur sur d dans le tableau, celle ci est donnée par : $u(d)=\sqrt{2}u(e)\approx0.01mm$. On s'intéresse alors à la moyenne sur d: $\Bar{d}$. Le sujet de Tp donne:
+
+\[
+\Bar{d}=\frac{1}{N}\sum_i^Nd_i \Longrightarrow u(\Bar{d})=\frac{u(d)}{\sqrt{N}}= \frac{u(e)}{\sqrt{5}}
+\]
+Nous obtenons donc $d= \Bar{d}_{10}  \pm  u(\Bar{d}_{10})=  0.08 \pm 0.01 mm $\textbf{ (Q22)}
+
+
+\subsection{Vers une méthode plus précise}
+Nous avons: 
+
+\[
+\Bar{d}=\frac{1}{N}\sum_i^Nd_i=\frac{1}{N}\sum_i^N \left( e_i-e_{i-1} \right)=\frac{e_{N}-e_{0}}{N}
+\]
+Ce qui, dans notre cas, donne: $u(\Bar{d})=\frac{\sqrt{2}u(e)}{N}$. Ainsi, en allant chercher N très grand, on abouti à une incertitude $u(\Bar{d})$ très faible. Nous allons donc aller directement mesurer $e_N$ pour N grand. Déterminons N tel que si l'on avance jusqu'à $e_{10 + N }= e_{10 }+ N \times \left( d \pm u(d) \right)$ on soit sûrs de nous trouver au proche voisinage de l'anticoïncidence n°10+N, ie $N\times u(d) \le 0.3\Bar{d}$. Grace aux valeurs déjà reportées, nous savons que:
+
+\[
+u(d) \le \sqrt{2} \frac{u(e)}{10} \Longrightarrow \exists N_{max } \text{tel que: } N_{max}\times \sqrt{2}\frac{u(e)}{10} \approx 0.3\Bar{d} \Leftrightarrow N_{max} \le \frac{3\Bar{d}}{\sqrt{2}u(e)}}= 18 \text{\textbf{(Q23)}}
+
+\]
+Nous prenons alors $N= 18 $. Nous avons alors $d_{28}=\frac{e_28-e_0}{28}=0.0792mm$ et $u(d_{28})=\frac{\sqrt{2}u(e)}{28}=0.0005mm$. Nous obtenons ainsi une augmentation significative de la précision sur notre mesure de $d$. Nous pouvons ensuite progresser pas à pas car chaque affinage de la précision sur d nous autorise à aller de plus en plus loin dans les mesures et à encore affiner notre mesure. Ainsi, nous sommes allés jusqu'à la 90ème anticoincidence. Nous avons: $d_{90}=0.0792mm$ et $u(d_{90})=0.0001mm$. Il existe une limite à la précision atteignable par cette méthode car si on dépasse la longueur de cohérence alors une annulation du contraste a lieu et l'on ne pourra plus effectuer de mesures. Nous n'avons néanmoins pas exploité au maximum cette méthode. En effet, la limite physique de cette méthode réside dans la longueur de cohérence de la source. Nous l'avions précédemment évaluée grossièrement :$L_c\approx 60mm$. Ainsi, nous pourrions reproduire notre méthode et évaluer confortablement $d_{200}$. Cependant, comme nous le verrons dans la suite. Nous arrêter à $d_{90}$ et $u(d_{90})$ donne déjà un résultat extrêmement précis sur $\Delta \lambda$. 
+
+Il conviens maintenant de relier la mesure de d effectuée à $\Delta \lambda$ , ainsi $\Delta \lambda= \frac{\lambda^2}{2d} \pm \frac{\lambda^2}{2} u\left( \frac{1}{d} \right) =\frac{\lambda^2}{2d}\pm \frac{\lambda^2}{2d} \, \frac{u(d)}{d}$
+\[\text{Nous obtenons ainsi: } \Delta \lambda= 2.109 \pm 0.002nm \text{\textbf{ (Q24)}}
+\]
+Si nous avions utilisé la valeur $d_{200}$, nous aurions pu obtenir une précision d'environ $10^{-12}m$ qui est la précision maximale atteignable avec ce protocole en raison de la limitation apportée par la longueur de cohérence.  \textbf{ (Q25)}
+
+
+
+\section{Franges en lumière blanche}
+Dans cette partie, nous utilisons une lumière blanche dont nous modéliserons le spectre d'émission comme étant celui d'un corps noir chauffé à 3000K.
+
+En réalité, notre source blanche était une lampe à LED \footnote{SYLVANIA ToLEDo GLS V6 806LM 865 E27 BL}.
+
+Obtenir des franges avec une source blanche est une tâche difficile, car la source est peu cohérente temporellement.\textbf{ (Q26)} Il faut donc avoir une cohérence spatiale maximale pour espérer obtenir des interférences et donc des franges. C'est pourquoi ces franges ne sont observables avec un bon contraste qu'au contact optique. Nous nous plaçons donc au contact optique avec la lampe spectrale avant de changer de lampe et d'affiner notre réglage afin de faire apparaitre des franges. 
+
+Une fois que notre réglage est terminé, nous observons avec le spectromètre de poche la lumière de sortie du Michelson. Lorsque nous nous éloignons du contact optique, on observe des cannelures qui se forment et sont de plus en plus larges au fur et à mesure que l'on s'éloigne. Cela est du au déphasage croissant entre les différentes couleurs quand $\delta $ croît.  \textbf{ (Q27)}
+
+Nous introduisons ensuite un angle sur M2 afin d'observer les franges. La frange centrale est dans l'état d'interférence p=0 car $e\ll1$ et $\alpha$ faible.\textbf{ (Q28)} Nous observons que l'on a un bon contraste pour environ 4 franges. Ensuite, le contraste chute brutalement. L'échelle des teintes donnée dans le sujet de TP nous indique que la différence de marche correspondant à la dernière frange encore visible est:  $\delta\approx 1800nm$ (teinte couleur beau vert).
+
+Nous en déduisons que dans le cas de la lumière blanche $L_c=N_{franges visibles}\times \delta\approx 7.2\mu m$. Ce résultat nous étonne un peu. En effet, considérons que notre lampe a un intervalle spectral de 350nm (l'oeil humain est sensible aux longueurs d'onde entre 400nm et 800nm) centré au tour de $\lambda_0=600nm$. On a alors $L_c=\frac{ \lambda_0^2}{\Delta \lambda}\approx 1 \mu m$. Un tel écart entre la théorie et la mesure nous incite à prendre notre mesure avec précaution, d'autant plus que notre appréciation de ce qu'est un "bon contraste" est subjective.\textbf{ (Q29)}
+\begin{multicols}{2}
+    
+
+Dans tous les cas, nous sommes limités dans cette mesure par la sensibilité spectrale limitée de nos yeux qui rend certaines couleurs de teintes inaccessibles. Nous n'étions donc pas en train d'étudier la lumière de la source blanche, mais plutôt sa restriction par notre sensibilité spectrale (même si les lampes LEDS émettent quand même majoritairement dans le visible contrairement aux lampes à incandescence). \textbf{(Q30)}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{plot_sensbc.png}
+    \label{fig:label_figure}
+\end{figure}
+
+
+\end{multicols}
+
+
+\section{Cohérence spatiale et temporelle : cas de bras dissymétriques}
+Pour cette partie, nous n'avons pas pu expérimenter de manière satisfaisante à cause de plusieurs érreurs successives rendant inexploitable ce que nous voyons en sortie du Michelson. Cette partie est donc un travail purement théorique. 
+\subsection{Cohérence temporelle}
+
+
+Pour cette partie, nous introduisons dans le bras de M2 du Michelson un bloc de verre d'indice supposé $n=1.5$ et d'épaisseur $e_L\approx3cm$. Ce bloc ajoute donc une différence de marche $\delta_0=2(n_{verre}-1)\times e_L\approx3cm$. \textbf{ (Q31)}Pour garder un contraste supérieur à $90\%$, il existe une limite sur l'épaisseur $e_L$. Nous utilisons la "règle du pouce"\footnote{Henri Benisty, \textit{Cours d'optique physique 1A} 2024}. Nous avons:
+
+\[
+\Delta p < \frac{1}{4} \Leftrightarrow \delta \frac{\Delta \lambda_0}{\lambda_0^2} = \frac{\delta_0}{L_c} < \frac{1}{4} \Leftrightarrow e_L < \frac{L_c}{8(n_v - 1)}
+\]\textbf{ (Q32)}
+Nous mesurons avec une règle $e_L=29 \pm 1mm$. On en déduit que l'on peut atteindre un contraste supérieur à $90\%$ si on utilise une source ayant une longueur de cohérence $L_c$ telle que $10mm\le L_c$. Nous utilisons donc la source verte utilisée précédemment. 
+
+Pour régler le problème de la cohérence temporelle, il faut réduire la longueur du bras 2 du Michelson afin de revenir au contact optique. Nous avançons donc M2 d'une distance $\delta_0$ vers la séparatrice.\textbf{ (Q33)} Cette étape n'a pas donné de résultats. Nous avions toujours un grand nombre d'anneaux sur notre figure. 
+
+
+\subsection{Cohérence spatiale}
+\begin{multicols}{2}
+    
+
+Pour régler le problème de la cohérence spatiale, il faut reculer M2 de $e_L(1-\frac{1}{n})$.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{cotemp.png}
+    \label{fig:label_figure}
+    \caption{Schéma issu du sujet de TP}
+\end{figure}
+
+Nous avons exclu cette démonstration du CR mais le fichier LaTeX est disponible sur le REP. GitHub donné en annexe. 
+Reculer M2 de $e_L(1-\frac{1}{n})$ est incompatible avec la contrainte de la cohérence temporelle car nous déplaçons le miroir de manière à nous éloigner de la correction nécessaire pour corriger la cohérence temporelle. Nous avons donc ici un compromis à faire entre cohérence temporelle et cohérence spatiale.  \textbf{ (Q34)}
+\end{multicols}
+
+
+\section{Conclusion}
+
+Le Michelson est un instrument d’une grande polyvalence qui permet d’explorer les propriétés fondamentales de la lumière, telles que la cohérence spatiale et temporelle, et de réaliser des mesures d’une précision remarquable. 
+
+Dans cette expérience, nous avons étudié la visibilité des franges en fonction de divers paramètres, tels que l'épaisseur du coin d'air et la taille de la source. Nous avons également exploré des phénomènes de cohérence temporelle en mesurant un écart spectral avec une grande précision, démontrant la sensibilité exceptionnelle de l’interféromètre quand nous lui appliquons de bonnes méthodes d'analyses des données produites. L’utilisation de la lumière blanche a souligné les défis liés à l’étude de sources peu cohérentes et à la limitation imposée par la sensibilité spectrale de l’œil humain.
+
+Le Michelson s’avère être un outil incontournable dans de nombreuses applications scientifiques et industrielles. Il est utilisé pour la caractérisation précise de surfaces optiques, la mesure d'épaisseurs infimes, la spectroscopie et l’étude des écarts spectraux. Son rôle dans des avancées majeures, comme dans les expériences de LIGO pour détecter les ondes gravitationnelles, illustre son importance pour des domaines de recherche à la pointe de la physique.
+
+Les limitations rencontrées dans nos mesures, notamment celles liées à la cohérence de la source et à la précision des instruments, soulignent néanmoins que l’utilisation du Michelson nécessite un réglage précis et une compréhension approfondie des paramètres influençant les interférences. Cela met en évidence l’importance de cet outil non seulement comme appareil de mesure mais aussi comme un outil pédagogique permettant d'illustrer les notions de cohérence temporelle et cohérence spatiale vues en cours d'optique physique.
+
+
+
+
+
+
+
+\section{Lien vers le GitHub pour les codes et la preuve Q31}
+Ce repository est une annexe au Compte Rendu du TP Michelson. Il contient le code python utilisé pour réaliser les plots utilisés dans le CR. Il contient aussi un fichier .txt qui, une fois compilé sur un logiciel LaTeX donne la preuve exigée en question 31.
+
+\url{https://github.com/hugoroutin/Rendu-code-TP-Michelson-ROUTIN-THEIL}
+
+\end{document}
