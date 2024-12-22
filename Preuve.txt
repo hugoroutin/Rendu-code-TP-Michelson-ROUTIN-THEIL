@@ -15,7 +15,7 @@ Ce document présente la démonstration que nous avons choisi d'exclure du CR.
 
 \section*{Démonstration}
 
-Partons de l'équation initiale :
+Partons de l'équation initiale obtenue avec des relations trigo basiques :
 \begin{equation}
 \frac{e_L + \varepsilon}{y} = \frac{\varepsilon + x}{y - e_L \tan(r)}
 \end{equation}
