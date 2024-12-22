@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath} % Pour les symboles mathématiques
+\usepackage{amssymb} % Pour des symboles supplémentaires
+
+\title{Démonstration}
+\author{Hugo Routin Samuel Theil}
+\date{25/12/24}
+
+\begin{document}
+
+\maketitle
+
+\section*{Introduction}
+Ce document présente la démonstration que nous avons choisi d'exclure du CR. 
+
+\section*{Démonstration}
+
+Partons de l'équation initiale :
+\begin{equation}
+\frac{e_L + \varepsilon}{y} = \frac{\varepsilon + x}{y - e_L \tan(r)}
+\end{equation}
+
+Dans l'approximation des petits angles, on pose \(r = \frac{i}{n}\) et \(\tan(r) \approx \frac{i}{n}\), ce qui nous donne :
+\begin{equation}
+\varepsilon + x = (\varepsilon + e_L) \left( 1 - \frac{e_L}{y} \frac{i}{n} \right)
+\end{equation}
+
+Or, nous savons que :
+\begin{equation}
+y = (e_L + \varepsilon) \tan(i) = (e_L + \varepsilon) i
+\end{equation}
+
+En substituant cette valeur dans l'équation précédente, nous obtenons :
+\begin{equation}
+\varepsilon + x = \varepsilon + e_L - e_L \frac{i}{n}
+\end{equation}
+
+D'où :
+\begin{equation}
+x = e_L \left( 1 - \frac{1}{n} \right)
+\end{equation}
+
+\section*{Conclusion}
+Nous devons donc reculer le miroir de la longueur $x = e_L \left( 1 - \frac{1}{n} \right)$
+
+\end{document}
