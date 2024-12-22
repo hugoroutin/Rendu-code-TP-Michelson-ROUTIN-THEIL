@@ -155,6 +155,8 @@ plt.show()
 
 #%%
 
+#Cette partie du code a été écrite avec l'aide de ChatGPT
+
 
 import numpy as np
 import matplotlib.pyplot as plt
