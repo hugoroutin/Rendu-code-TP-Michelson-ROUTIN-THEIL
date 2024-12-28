@@ -233,3 +233,95 @@ plt.xlim(280, 1400)
 # Affichage
 plt.show()
 
+
+#%%
+
+###
+#Début d'essai de simulation du michelson en lumière blanche
+###
+
+
+
+
+
+
+
+
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.colors import hsv_to_rgb
+
+# Constantes physiques
+c = 3e8  # Vitesse de la lumière (m/s)
+lambda_min = 400e-9  # Longueur d'onde minimale (400 nm)
+lambda_max = 700e-9  # Longueur d'onde maximale (700 nm)
+
+# Paramètres du coin d'air
+d = np.linspace(0, 1e-3, 500)  # Épaisseur du coin d'air (en mètres)
+x = np.linspace(-2e-2, 2e-2, 1000)  # Position horizontale élargie (en mètres)
+
+# Paramètres de la lumière blanche
+lambda_spectrum = np.linspace(lambda_min, lambda_max, 20)  # Spectre discret de la lumière blanche
+
+# Fonction spectrale de la source lumineuse (uniforme pour lumière blanche)
+def spectral_intensity(lambda_spectrum):
+    return np.ones_like(lambda_spectrum)  # Uniforme dans le spectre visible
+
+# Conversion longueur d'onde -> RGB (approximation)
+def wavelength_to_rgb(wavelength):
+    wavelength_nm = wavelength * 1e9
+    if wavelength_nm < 400 or wavelength_nm > 700:
+        return np.array([0, 0, 0])
+    if wavelength_nm <= 440:
+        R = -(wavelength_nm - 440) / (440 - 400)
+        G = 0.0
+        B = 1.0
+    elif wavelength_nm <= 490:
+        R = 0.0
+        G = (wavelength_nm - 440) / (490 - 440)
+        B = 1.0
+    elif wavelength_nm <= 510:
+        R = 0.0
+        G = 1.0
+        B = -(wavelength_nm - 510) / (510 - 490)
+    elif wavelength_nm <= 580:
+        R = (wavelength_nm - 510) / (580 - 510)
+        G = 1.0
+        B = 0.0
+    elif wavelength_nm <= 645:
+        R = 1.0
+        G = -(wavelength_nm - 645) / (645 - 580)
+        B = 0.0
+    else:
+        R = 1.0
+        G = 0.0
+        B = 0.0
+
+    factor = 1.0
+    if wavelength_nm < 420:
+        factor = 0.3 + 0.7 * (wavelength_nm - 400) / (420 - 400)
+    elif wavelength_nm > 645:
+        factor = 0.3 + 0.7 * (700 - wavelength_nm) / (700 - 645)
+
+    return np.clip([R * factor, G * factor, B * factor], 0, 1)
+
+# Calcul des franges d'interférence dans le coin d'air
+intensities = np.zeros((len(lambda_spectrum), len(d), len(x), 3))
+for i, wavelength in enumerate(lambda_spectrum):
+    intensity = spectral_intensity(wavelength) * (1 + np.cos(4 * np.pi * d[:, None] / wavelength))
+    rgb_color = wavelength_to_rgb(wavelength)
+    for j in range(3):
+        intensities[i, :, :, j] = np.outer(intensity, np.ones_like(x)) * rgb_color[j]
+
+# Somme des intensités sur tout le spectre visible
+I_total_rgb = np.sum(intensities, axis=0)
+I_total_rgb /= np.max(I_total_rgb)  # Normalisation
+
+# Affichage des résultats
+plt.figure(figsize=(14, 7))
+plt.imshow(I_total_rgb, extent=[x[0] * 1e3, x[-1] * 1e3, d[0] * 1e3, d[-1] * 1e3], aspect='auto', origin='lower')
+plt.xlabel("Position horizontale (mm)")
+plt.ylabel("Épaisseur du coin d'air (mm)")
+plt.ylim(0,0.1)
+plt.title("Franges d'interférence élargies dans un coin d'air avec lumière blanche")
+plt.show()
