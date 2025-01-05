@@ -96,8 +96,7 @@ yErrorValues = np.ones([5,])*0.04
 
 y0,x0=0,0 #définition du point de passage obligatoire des droites
 
-def modele_contraint(x, a):
-    return a * x + (y0 - a * x0)
+
 
 params_10m, cov =curve_fit(modele_contraint, p,dixm,[10],sigma=list(pErrorValues) )
 a_opti=params_10m
